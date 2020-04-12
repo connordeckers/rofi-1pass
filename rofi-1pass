@@ -4,10 +4,11 @@ set -o pipefail
 
 
 : "${PINENTRY_PROGRAM:=pinentry-x11}"
+: "${DOMAIN_NAME:=my}"
 
 login() {
   if command -v $PINENTRY_PROGRAM > /dev/null; then
-    $PINENTRY_PROGRAM << EOS | grep -oP 'D \K.*' | op signin my > ~/.op/session
+    $PINENTRY_PROGRAM << EOS | grep -oP 'D \K.*' | op signin $DOMAIN_NAME > ~/.op/session
 SETDESC Enter your 1password master password:
 SETPROMPT Master Password:
 GETPIN
